@@ -3,264 +3,195 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>MCCTI Tracker Management Dashboard</title>
+<title>MCCTI Tracker Executive Dashboard - Latest Cut</title>
 <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
 <style>
-  :root {
-    --bg:#0b1020; --panel:#121933; --panel2:#0f1730; --ink:#eef2ff; --muted:#a8b3cf;
-    --accent:#5eead4; --accent2:#60a5fa; --warn:#f59e0b; --danger:#f43f5e; --ok:#22c55e;
-    --line:#243152;
-  }
-  * { box-sizing:border-box; }
-  body {
-    margin:0; font-family: Inter, Arial, sans-serif; background:linear-gradient(180deg,#09101f,#0b1020 28%,#0d1328);
-    color:var(--ink);
-  }
-  .wrap { max-width: 1500px; margin: 0 auto; padding: 24px; }
-  .hero {
-    display:grid; grid-template-columns: 1.8fr 1fr; gap:20px; align-items:stretch; margin-bottom:20px;
-  }
-  .panel {
-    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
-    border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:0 8px 30px rgba(0,0,0,.18);
-  }
-  .headline {
-    font-size: 34px; line-height:1.1; margin: 0 0 8px; font-weight:800; letter-spacing:-0.02em;
-  }
-  .sub { color:var(--muted); font-size:15px; line-height:1.5; }
-  .badges { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-  .badge {
-    padding:8px 12px; border-radius:999px; background:#101a38; border:1px solid #26365f; color:#d7def8; font-size:13px;
-  }
-  .scorecard-grid {
-    display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; margin:20px 0 22px;
-  }
-  .card {
-    background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:16px;
-  }
-  .kicker { font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
-  .metric { font-size:30px; font-weight:800; margin-top:8px; }
-  .metric.small { font-size:24px; }
-  .hint { color:var(--muted); font-size:12px; margin-top:8px; line-height:1.4; }
-  .section-title { font-size:18px; font-weight:700; margin: 0 0 10px; }
-  .grid-2 { display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; margin-bottom:20px; }
-  .grid-3 { display:grid; grid-template-columns: repeat(3,1fr); gap:20px; margin-bottom:20px; }
-  .grid-2-even { display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px; }
-  .chart { height:380px; }
-  .chart.tall { height:430px; }
-  table {
-    width:100%; border-collapse: collapse; font-size:13px; overflow:hidden;
-  }
-  th, td {
-    border-bottom:1px solid rgba(255,255,255,.08); padding:10px 8px; text-align:left; vertical-align:top;
-  }
-  th { color:#d5defe; font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
-  td { color:#eef2ff; }
-  .num { text-align:right; white-space:nowrap; font-variant-numeric: tabular-nums; }
-  .tag { padding:4px 8px; border-radius:999px; font-size:12px; display:inline-block; }
-  .danger { background: rgba(244,63,94,.12); color:#fda4af; border:1px solid rgba(244,63,94,.25); }
-  .warn { background: rgba(245,158,11,.12); color:#fcd34d; border:1px solid rgba(245,158,11,.25); }
-  .ok { background: rgba(34,197,94,.12); color:#86efac; border:1px solid rgba(34,197,94,.25); }
-  .mutedbox {
-    display:flex; flex-direction:column; gap:12px; justify-content:center; height:100%;
-  }
-  .callout {
-    background:linear-gradient(180deg, rgba(94,234,212,.10), rgba(96,165,250,.08));
-    border:1px solid rgba(94,234,212,.18); border-radius:18px; padding:16px;
-  }
-  .foot { color:var(--muted); font-size:12px; line-height:1.5; margin-top:16px; }
-  @media (max-width: 1100px) {
-    .hero, .grid-2, .grid-2-even, .grid-3, .scorecard-grid { grid-template-columns:1fr; }
-  }
+:root {
+  --bg:#09101d; --bg2:#0d1730; --panel:#111b35; --line:#243657;
+  --ink:#eef3ff; --muted:#a7b5d1; --teal:#5eead4; --blue:#60a5fa; --gold:#f59e0b; --rose:#f43f5e; --green:#22c55e;
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:Inter, Arial, sans-serif; color:var(--ink); background:linear-gradient(180deg, var(--bg), var(--bg2)); }
+.wrap { max-width:1500px; margin:0 auto; padding:24px; }
+.hero, .grid2, .grid3, .grid2even { display:grid; gap:20px; }
+.hero { grid-template-columns: 1.8fr 1fr; margin-bottom:20px; }
+.grid2 { grid-template-columns: 1fr 1fr; margin-bottom:20px; }
+.grid2even { grid-template-columns: 1fr 1fr; margin-bottom:20px; }
+.grid3 { grid-template-columns: repeat(3, 1fr); margin-bottom:20px; }
+.panel {
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border:1px solid var(--line); border-radius:24px; padding:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.kicker { color:var(--muted); text-transform:uppercase; letter-spacing:.08em; font-size:12px; }
+h1 { font-size:34px; line-height:1.08; margin:8px 0 10px; letter-spacing:-.03em; }
+.sub { color:var(--muted); line-height:1.55; font-size:15px; }
+.badges { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 18px; }
+.badge { border:1px solid #29416a; background:#0f1a38; color:#dbe7ff; border-radius:999px; padding:8px 12px; font-size:13px; }
+.scorecards { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-top:18px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:16px; }
+.metric { font-size:30px; font-weight:800; margin-top:8px; }
+.hint { color:var(--muted); font-size:12px; line-height:1.4; margin-top:8px; }
+.section { font-size:18px; font-weight:700; margin:0 0 12px; }
+.chart { height:400px; }
+.chart.tall { height:440px; }
+.callout { margin-top:18px; background:linear-gradient(180deg, rgba(94,234,212,.10), rgba(96,165,250,.07)); border:1px solid rgba(94,234,212,.18); border-radius:18px; padding:16px; line-height:1.55; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th, td { padding:10px 8px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; vertical-align:top; }
+th { font-size:12px; text-transform:uppercase; color:#d8e3fb; letter-spacing:.05em; }
+.num { text-align:right; white-space:nowrap; font-variant-numeric: tabular-nums; }
+.tag { display:inline-block; border-radius:999px; padding:4px 8px; font-size:12px; }
+.warn { color:#fcd34d; border:1px solid rgba(245,158,11,.25); background:rgba(245,158,11,.12); }
+.danger { color:#fda4af; border:1px solid rgba(244,63,94,.25); background:rgba(244,63,94,.12); }
+.ok { color:#86efac; border:1px solid rgba(34,197,94,.25); background:rgba(34,197,94,.12); }
+.foot { color:var(--muted); font-size:12px; line-height:1.5; margin-top:16px; }
+@media (max-width: 1100px) {
+  .hero, .grid2, .grid2even, .grid3, .scorecards { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hero">
     <div class="panel">
-      <div class="kicker">MCCTI · Tracker Intelligence Dashboard</div>
-      <h1 class="headline">Management dashboard for file submissions, approval bottlenecks, and budget exposure</h1>
+      <div class="kicker">MCCTI · Executive File Submission Intelligence</div>
+      <h1>Premium dashboard built from the latest tracker workbook</h1>
       <div class="sub">
-        Snapshot built from the latest tracker management brief and VOC utilization analysis. This version is designed for executive visibility:
-        approval concentration, pending value, aging pressure, exception files, and budget utilization risks on one screen.
+        This cut uses the newly uploaded tracker file and corrects the status interpretation. The dashboard shows current value in queue,
+        approval conversion, aging pressure, department exposure, status mix, and executive exceptions.
       </div>
       <div class="badges">
-        <div class="badge">Report cut-off: 27 March 2026</div>
-        <div class="badge">Pending files: 95</div>
-        <div class="badge">Pending exposure: ₦5,145,074,719.61</div>
-        <div class="badge">Approval conversion: 12.9%</div>
+        <div class="badge">Report date: 17 April 2026</div>
+        <div class="badge">Total entries: 142</div>
+        <div class="badge">Awaiting approvals: 83</div>
+        <div class="badge">Completed approvals: 59</div>
       </div>
-      <div class="scorecard-grid">
+      <div class="scorecards">
         <div class="card">
           <div class="kicker">Total proposed value</div>
-          <div class="metric">₦6.24B</div>
-          <div class="hint">137 total entries in the tracker register.</div>
+          <div class="metric">₦6.33B</div>
+          <div class="hint">Aggregate submission value across all 142 records.</div>
         </div>
         <div class="card">
           <div class="kicker">Approved value</div>
-          <div class="metric">₦0.8B</div>
-          <div class="hint">42 approvals captured with valid dates.</div>
+          <div class="metric">₦1.47B</div>
+          <div class="hint">Already cleared and reflected in actual amount.</div>
         </div>
         <div class="card">
-          <div class="kicker">Pending pipeline</div>
-          <div class="metric">₦5.15B</div>
-          <div class="hint">82.4% of requested value is still in queue.</div>
+          <div class="kicker">Pending pipeline value</div>
+          <div class="metric">₦4.61B</div>
+          <div class="hint">Exposure still tied to awaiting approval stages.</div>
         </div>
         <div class="card">
-          <div class="kicker">Backlog signal</div>
-          <div class="metric">70</div>
-          <div class="hint">Files above 30 days. Average pending age: 38.7 days.</div>
+          <div class="kicker">Approval conversion</div>
+          <div class="metric">23.3%</div>
+          <div class="hint">Approved value as a share of total proposed value.</div>
         </div>
       </div>
       <div class="callout">
-        <strong>Executive read:</strong> the main risk is not submission volume by itself. It is value concentration at MG stage, a large 31–60 day aging band, and weak workflow intelligence fields.
+        <strong>Executive read:</strong> the tracker now shows real movement, but the core risk remains top-level concentration.
+        MG-stage awaiting files still carry the largest financial exposure, and most pending files are already older than 30 days.
       </div>
     </div>
-    <div class="panel mutedbox">
-      <div>
-        <div class="section-title">Management attention signals</div>
-        <div class="card" style="margin-bottom:12px;">
-          <div class="kicker">Primary financial bottleneck</div>
-          <div class="metric small">Mr Governor stage</div>
-          <div class="hint">32 files carrying ₦4.19B of pending exposure.</div>
-        </div>
-        <div class="card" style="margin-bottom:12px;">
-          <div class="kicker">Operational workload hotspot</div>
-          <div class="metric small">Admin/HR</div>
-          <div class="hint">34 entries in total and 20 pending items in the latest brief.</div>
-        </div>
-        <div class="card">
-          <div class="kicker">Data control weakness</div>
-          <div class="metric small">27 missing VOCs</div>
-          <div class="hint">Plus blank remarks/action fields and date anomalies weakening audit readiness.</div>
-        </div>
+    <div class="panel">
+      <div class="section">Management signals</div>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="kicker">Largest bottleneck</div>
+        <div class="metric" style="font-size:26px;">MG Stage</div>
+        <div class="hint">30 pending files carrying ₦3.83B.</div>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="kicker">Backlog stress</div>
+        <div class="metric" style="font-size:26px;">74</div>
+        <div class="hint">Pending files above 30 days. Median pending age: 65 days.</div>
+      </div>
+      <div class="card">
+        <div class="kicker">Control weakness</div>
+        <div class="metric" style="font-size:26px;">142</div>
+        <div class="hint">Rows with blank remarks or action history, limiting operational visibility.</div>
       </div>
       <div class="foot">
-        This dashboard is a working snapshot. To make it truly live, the source workbook must feed an online data store or BI service on a schedule or through direct entry forms.
+        This ZIP includes the dashboard HTML, original workbook, and cleaned extracts so the same view can be rebuilt or published later.
       </div>
     </div>
   </div>
 
-  <div class="grid-2">
+  <div class="grid2">
     <div class="panel">
-      <div class="section-title">Pending approval pipeline by authority</div>
+      <div class="section">Pending approval pipeline by authority</div>
       <div id="pipelineChart" class="chart"></div>
     </div>
     <div class="panel">
-      <div class="section-title">Pending aging profile</div>
+      <div class="section">Pending aging profile</div>
       <div id="agingChart" class="chart"></div>
     </div>
   </div>
 
-  <div class="grid-2-even">
+  <div class="grid2even">
     <div class="panel">
-      <div class="section-title">Departmental exposure</div>
-      <div id="deptExposureChart" class="chart tall"></div>
+      <div class="section">Department exposure</div>
+      <div id="deptChart" class="chart tall"></div>
     </div>
     <div class="panel">
-      <div class="section-title">Approval turnaround performance</div>
-      <div id="turnaroundChart" class="chart tall"></div>
+      <div class="section">Status mix and turnaround</div>
+      <div id="statusChart" class="chart"></div>
+      <div id="turnaroundChart" class="chart"></div>
     </div>
   </div>
 
-  <div class="grid-2-even">
+  <div class="grid2even">
     <div class="panel">
-      <div class="section-title">Top high-value pending items</div>
+      <div class="section">Top high-value pending files</div>
       <table>
-        <thead>
-          <tr>
-            <th>Project / Subject</th>
-            <th>Department</th>
-            <th>Date Sent</th>
-            <th>Stage</th>
-            <th class="num">Value</th>
-          </tr>
-        </thead>
-        <tbody id="topPendingTable"></tbody>
+        <thead><tr><th>Subject</th><th>Department</th><th>Stage</th><th>Date Sent</th><th class="num">Pending Value</th></tr></thead>
+        <tbody id="topPendingRows"></tbody>
       </table>
     </div>
     <div class="panel">
-      <div class="section-title">Data quality and control alerts</div>
+      <div class="section">Data quality and control alerts</div>
       <table>
-        <thead>
-          <tr>
-            <th>Issue</th>
-            <th class="num">Count</th>
-            <th>Severity</th>
-          </tr>
-        </thead>
-        <tbody id="dqTable"></tbody>
+        <thead><tr><th>Issue</th><th class="num">Count</th><th>Severity</th></tr></thead>
+        <tbody id="dqRows"></tbody>
       </table>
       <div class="foot">
-        Recommended mandatory workflow fields: Current Holder, Next Action, Remarks, Escalation Date, and Expected Resolution Date.
+        Key operational fix: make Current Holder, Next Action, Remarks, Expected Resolution Date, and Escalation Date mandatory fields.
       </div>
     </div>
   </div>
 
-  <div class="grid-2-even">
+  <div class="grid3">
     <div class="panel">
-      <div class="section-title">Budget utilization stress points</div>
-      <div id="budgetGapChart" class="chart tall"></div>
+      <div class="section">Immediate actions</div>
+      <table><tbody>
+        <tr><td>Escalate every file above ₦100M weekly.</td></tr>
+        <tr><td>Review all MG-stage files in a dedicated executive queue.</td></tr>
+        <tr><td>Flag every pending file older than 45 days.</td></tr>
+      </tbody></table>
     </div>
     <div class="panel">
-      <div class="section-title">Top over-utilized / unmatched items</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Department</th>
-            <th class="num">Allocated</th>
-            <th class="num">Spent</th>
-            <th class="num">Overrun</th>
-          </tr>
-        </thead>
-        <tbody id="overUtilTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="grid-3">
-    <div class="panel">
-      <div class="section-title">Immediate actions</div>
-      <table>
-        <tbody>
-          <tr><td>Review all files above ₦100M weekly.</td></tr>
-          <tr><td>Escalate every file older than 30 days.</td></tr>
-          <tr><td>Trigger critical review at 45 days.</td></tr>
-        </tbody>
-      </table>
+      <div class="section">Process control actions</div>
+      <table><tbody>
+        <tr><td>Separate executive, operations, and control views.</td></tr>
+        <tr><td>Eliminate placeholder-date logic from reporting views.</td></tr>
+        <tr><td>Populate remarks and action history on every movement.</td></tr>
+      </tbody></table>
     </div>
     <div class="panel">
-      <div class="section-title">Operational control actions</div>
-      <table>
-        <tbody>
-          <tr><td>Make workflow ownership and next action fields mandatory.</td></tr>
-          <tr><td>Separate executive, operations, and control views.</td></tr>
-          <tr><td>Clean unmatched VOC and placeholder-date logic.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="panel">
-      <div class="section-title">Real-time deployment path</div>
-      <table>
-        <tbody>
-          <tr><td>Source: Excel tracker or online form.</td></tr>
-          <tr><td>Refresh: scheduled Power BI / Tableau / web app sync.</td></tr>
-          <tr><td>Access: role-based management link with daily or hourly updates.</td></tr>
-        </tbody>
-      </table>
+      <div class="section">Deployment path</div>
+      <table><tbody>
+        <tr><td>Use this HTML for immediate review and sharing.</td></tr>
+        <tr><td>Use included CSV extracts to rebuild in Tableau or Power BI.</td></tr>
+        <tr><td>For true real-time use, connect the tracker to a governed online data source.</td></tr>
+      </tbody></table>
     </div>
   </div>
 </div>
 
 <script>
-const data = {"summary": {"report_cutoff": "27 March 2026", "total_entries": 137, "total_proposed": 6243509887.34, "approved_value": 802322142.5, "pending_value": 5145074719.61, "pending_files": 95, "approval_conversion_pct": 12.9, "pending_pct_of_total": 82.4, "avg_pending_age": 38.7, "median_pending_age": 44, "pending_above_30": 70, "oldest_pending": 58, "approved_files": 42}, "pipeline": [{"stage": "MEBP", "files": 41, "value": 592699148.79}, {"stage": "Mr Governor (MG)", "files": 32, "value": 4192075158.59}, {"stage": "Deputy Governor (DG)", "files": 22, "value": 360300412.23}], "aging": [{"bucket": "0\u20137 days", "files": 6}, {"bucket": "8\u201314 days", "files": 3}, {"bucket": "15\u201330 days", "files": 16}, {"bucket": "31\u201360 days", "files": 70}, {"bucket": "60+ days", "files": 0}], "top_pending": [{"project": "Development of Agro Industrial Park in Lagos", "department": "Trade", "value": 1690000000, "date_sent": "10/03/2026", "stage": "MG"}, {"project": "Establishment of Iberoko Industrial Layout", "department": "Trade", "value": 556320000, "date_sent": "10/03/2026", "stage": "MG"}, {"project": "Lagos State MSME Exclusive Fair", "department": "Commerce", "value": 264700000, "date_sent": "18/02/2026", "stage": "MG"}, {"project": "Lagos International Trade Fair", "department": "Commerce", "value": 228800000, "date_sent": "10/03/2026", "stage": "MG"}, {"project": "Matters Affecting Academic Staff", "department": "LASCOCO", "value": 165000000, "date_sent": "11/02/2026", "stage": "MG"}, {"project": "World Consumer Rights Day", "department": "LASCOPA", "value": 150000000, "date_sent": "03/02/2026", "stage": "MG"}, {"project": "Office Equipment for Cooperative Area Offices", "department": "Cooperatives", "value": 107439750, "date_sent": "09/02/2026", "stage": "Pending"}], "dept_exposure": [{"department": "Trade", "entries": 9, "proposed": 2405000000, "pending_files": 8, "pending_value": 2400000000}, {"department": "Commerce", "entries": 12, "proposed": 988480000, "pending_files": null, "pending_value": null}, {"department": "Admin/HR", "entries": 34, "proposed": 861300000, "pending_files": 20, "pending_value": 638310000}, {"department": "LASCOPA", "entries": 25, "proposed": 434880000, "pending_files": 25, "pending_value": 434880000}, {"department": "Investment", "entries": 5, "proposed": 383640000, "pending_files": 3, "pending_value": 115320000}, {"department": "Cooperatives", "entries": 13, "proposed": 269880000, "pending_files": 9, "pending_value": 223650000}, {"department": "Office of SSA", "entries": 2, "proposed": 242890000, "pending_files": 0, "pending_value": 0}, {"department": "LASCOCO", "entries": 2, "proposed": 169990000, "pending_files": 2, "pending_value": 169990000}], "turnaround": [{"level": "Approved \u2013 DG", "files": 24, "avg_days": 19.2, "median_days": 22}, {"level": "Approved \u2013 MEBP", "files": 7, "avg_days": 24.1, "median_days": 35}, {"level": "Approved \u2013 MG", "files": 8, "avg_days": 8.5, "median_days": 3}], "data_quality": [{"issue": "Entries with no Vote of Charge captured", "count": 27, "severity": "High"}, {"issue": "Approval date precedes Date Sent", "count": 3, "severity": "High"}, {"issue": "Pending placeholder date (01/01/70) in operational sheet", "count": 95, "severity": "Medium"}, {"issue": "Remarks / Action fields largely blank", "count": 95, "severity": "High"}], "util_summary": {"largest_underutilized_desc": "Renovation of Small Scale Industrial Estate", "largest_underutilized_gap": 1116874592.14, "largest_unused_desc": "Imota Industrial Park Development/Gberigbe", "largest_unused_gap": 4000000000.0, "largest_overutilized_desc": "Construction of Fence and mounting of gate at Enterprise Zone", "largest_overutilized_gap": 791779229.05}, "util_top_under": [{"item": "Imota Industrial Park Development/Gberigbe", "department": "Trade", "spent": 0, "allocated": 4000000000, "gap": 4000000000, "status": "Unused"}, {"item": "Renovation of Small Scale Industrial Estate", "department": "Trade", "spent": 83125407.86, "allocated": 1200000000, "gap": 1116874592.14, "status": "Under Utilized"}, {"item": "Investment Support Services (ICT)", "department": "ICT", "spent": 100192500, "allocated": 900000000, "gap": 799807500, "status": "Under Utilized"}, {"item": "Investment Support Services (Investment)", "department": "Investment", "spent": 228322324, "allocated": 900000000, "gap": 671677676, "status": "Under Utilized"}, {"item": "Office Equipment and Renovation (Admin/HR)", "department": "Admin/HR", "spent": 219307135, "allocated": 500000000, "gap": 280692865, "status": "Under Utilized"}], "util_top_over": [{"item": "Construction of Fence and mounting of gate at Enterprise Zone", "department": "Trade", "spent": 2246417888.52, "allocated": 1454638659.47, "overrun": 791779229.05, "status": "Over Utilized"}, {"item": "Senior Special Assistant Expenses", "department": "Office of SSA", "spent": 242885200, "allocated": 50000000, "overrun": 192885200, "status": "Over Utilized"}, {"item": "LASCOPA unmatched items", "department": "LASCOPA", "spent": 434876276, "allocated": 0, "overrun": 434876276, "status": "Unmatched / Over Utilized"}, {"item": "Committee Expenses", "department": "Commerce", "spent": 190000000, "allocated": 150000000, "overrun": 40000000, "status": "Over Utilized"}, {"item": "Workshop & Training Expenses", "department": "Admin/HR", "spent": 98001177, "allocated": 80000000, "overrun": 18001177, "status": "Over Utilized"}]};
+const data = {"summary": {"report_cutoff": "17 April 2026", "total_entries": 142, "total_proposed": 6331896683.34, "approved_value": 1474271402.07, "gross_unresolved_value": 4857625281.27, "pending_value": 4606541838.610001, "pending_files": 83, "approved_files": 59, "approval_conversion_pct": 23.28325106676155, "pending_pct_of_total": 72.75137401926312, "avg_pending_age": 58.204819277108435, "median_pending_age": 65.0, "pending_above_30": 74, "oldest_pending": 79}, "pipeline": [{"Stage": "DG", "pending_files": 13, "pending_value_naira": 284666912.23}, {"Stage": "MEBP", "pending_files": 40, "pending_value_naira": 494697971.79}, {"Stage": "MG", "pending_files": 30, "pending_value_naira": 3827176954.59}], "aging": [{"Aging Bucket": "0\u20137 days", "pending_files": 0}, {"Aging Bucket": "8\u201314 days", "pending_files": 0}, {"Aging Bucket": "15\u201330 days", "pending_files": 9}, {"Aging Bucket": "31\u201360 days", "pending_files": 31}, {"Aging Bucket": "60+ days", "pending_files": 43}], "dept": [{"Department": "Trade", "total_entries": 10, "proposed_value_naira": 2434541796.38, "actual_value_naira": 45000000.0, "pending_files": 7.0, "pending_value_naira": 2389541796.38}, {"Department": "Commerce", "total_entries": 12, "proposed_value_naira": 988477000.0, "actual_value_naira": 95000000.0, "pending_files": 10.0, "pending_value_naira": 863477000.0}, {"Department": "Admin/HR", "total_entries": 35, "proposed_value_naira": 878204545.0, "actual_value_naira": 231924321.0, "pending_files": 19.0, "pending_value_naira": 550180843.0}, {"Department": "Cooperatives", "total_entries": 13, "proposed_value_naira": 269882800.0, "actual_value_naira": 46337500.0, "pending_files": 9.0, "pending_value_naira": 223645300.0}, {"Department": "LASCOPA", "total_entries": 25, "proposed_value_naira": 434876276.0, "actual_value_naira": 173700000.0, "pending_files": 19.0, "pending_value_naira": 191176276.0}, {"Department": "Investment", "total_entries": 6, "proposed_value_naira": 621139004.0, "actual_value_naira": 470816680.0, "pending_files": 3.0, "pending_value_naira": 115322324.0}, {"Department": "Office of HC", "total_entries": 6, "proposed_value_naira": 103408412.5, "actual_value_naira": 14409237.5, "pending_files": 2.0, "pending_value_naira": 79912000.0}, {"Department": "ICT", "total_entries": 4, "proposed_value_naira": 125504999.0, "actual_value_naira": 61692500.0, "pending_files": 3.0, "pending_value_naira": 63812499.0}, {"Department": "Public Affairs", "total_entries": 8, "proposed_value_naira": 64519200.46, "actual_value_naira": 18678000.0, "pending_files": 5.0, "pending_value_naira": 43215850.230000004}, {"Department": "Inspectorate", "total_entries": 2, "proposed_value_naira": 60524500.0, "actual_value_naira": 20734500.0, "pending_files": 1.0, "pending_value_naira": 39789500.0}, {"Department": "Accounts", "total_entries": 5, "proposed_value_naira": 49885600.0, "actual_value_naira": 17985600.0, "pending_files": 2.0, "pending_value_naira": 31900000.0}, {"Department": "Planning", "total_entries": 3, "proposed_value_naira": 24911500.0, "actual_value_naira": 16711500.0, "pending_files": 1.0, "pending_value_naira": 8200000.0}], "top_pending": [{"Subject": "DEVELOPMENT OF AGRO INDUSTRIAL PARK IN LAGOS STATE- ILARA-IGBONLA", "Department": "Trade", "Stage": "MG", "Pending Value": 1690093603.06, "Date Sent": "10 Mar 2026"}, {"Subject": "ESTABLISHMENT OF IBEROKO INDUSTRIAL LAYOUT, BADAGRY", "Department": "Trade", "Stage": "MG", "Pending Value": 556324285.46, "Date Sent": "10 Mar 2026"}, {"Subject": "LAGOS STATE MSME EXCLUSIVE FAIR", "Department": "Commerce", "Stage": "MG", "Pending Value": 264700000.0, "Date Sent": "18 Feb 2026"}, {"Subject": "LAGOS INTERNATIONAL TRADE FAIR", "Department": "Commerce", "Stage": "MG", "Pending Value": 228800000.0, "Date Sent": "10 Mar 2026"}, {"Subject": "OFFICE EQUIPMENT FOR COOPERATIVE AREA OFFICE", "Department": "Cooperatives", "Stage": "MG", "Pending Value": 107439750.0, "Date Sent": "09 Feb 2026"}, {"Subject": "C-WEALTH HEADS OF GOVT. FORUM 2026 (CHOGM)", "Department": "Investment", "Stage": "MG", "Pending Value": 89016324.0, "Date Sent": "10 Mar 2026"}, {"Subject": "OFFICE FURNITURE EQUIPMENT", "Department": "Admin/HR", "Stage": "MEBP", "Pending Value": 74822000.0, "Date Sent": "09 Feb 2026"}, {"Subject": "OFFICE FURNITURE AND EQUIPMENT", "Department": "Admin/HR", "Stage": "DG", "Pending Value": 74090000.0, "Date Sent": "27 Mar 2026"}, {"Subject": "MICRO-SMALL MEDIUM ENTERPRISES (MSME)", "Department": "Commerce", "Stage": "MG", "Pending Value": 70425000.0, "Date Sent": "10 Mar 2026"}, {"Subject": "ACTIVITIES OF CHAMBERS OF COMMERCE AND INDUSTRY AT GRASSROOTS LEVEL", "Department": "Commerce", "Stage": "MG", "Pending Value": 70000000.0, "Date Sent": "09 Feb 2026"}, {"Subject": "SEMINARS", "Department": "Admin/HR", "Stage": "MG", "Pending Value": 64063406.0, "Date Sent": "25 Feb 2026"}, {"Subject": "PURCHASE OF OFFICE FURNITURE FOR COOPERATIVE AREA OFFICES", "Department": "Cooperatives", "Stage": "MG", "Pending Value": 61331800.0, "Date Sent": "09 Feb 2026"}], "turnaround": [{"Stage": "DG", "approved_files": 36, "avg_days": 16.916666666666668, "median_days": 22.0}, {"Stage": "MEBP", "approved_files": 7, "avg_days": 24.142857142857142, "median_days": 35.0}, {"Stage": "MG", "approved_files": 16, "avg_days": 7.4375, "median_days": 2.5}], "data_quality": [{"issue": "Entries with no Vote of Charge captured", "count": 27, "severity": "High"}, {"issue": "Blank remarks / action history", "count": 142, "severity": "High"}, {"issue": "Placeholder approval date 01/01/70", "count": 83, "severity": "Medium"}, {"issue": "Approval date precedes Date Sent", "count": 3, "severity": "High"}], "status_counts": [{"status": "Awaiting Approval - MEBP", "count": 40}, {"status": "Approved by DG", "count": 36}, {"status": "Awaiting Approval - Mr Governor (MG)", "count": 30}, {"status": "Approved by MG", "count": 16}, {"status": "Awaiting Approval - Deputy Governor (DG)", "count": 13}, {"status": "Approved by MEBP", "count": 7}]};
 
 function naira(v) {
   return '₦' + Number(v).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
-function bn(v) {
-  return '₦' + (Number(v)/1e9).toFixed(2) + 'B';
 }
 function severityClass(s) {
   if (s === 'High') return 'danger';
@@ -271,27 +202,24 @@ function severityClass(s) {
 Plotly.newPlot('pipelineChart', [
   {
     type:'bar',
-    x: data.pipeline.map(d=>d.stage),
-    y: data.pipeline.map(d=>d.files),
-    name:'Pending files',
-    text: data.pipeline.map(d=>d.files + ' files'),
+    x:data.pipeline.map(d=>d.Stage),
+    y:data.pipeline.map(d=>d.pending_files),
+    text:data.pipeline.map(d=>d.pending_files + ' files'),
     textposition:'outside',
-    marker: {opacity:0.85}
+    name:'Pending files'
   },
   {
     type:'scatter',
-    x: data.pipeline.map(d=>d.stage),
-    y: data.pipeline.map(d=>d.value / 1e9),
-    yaxis:'y2',
+    x:data.pipeline.map(d=>d.Stage),
+    y:data.pipeline.map(d=>d.pending_value_naira/1e9),
     mode:'lines+markers+text',
-    text: data.pipeline.map(d=>bn(d.value)),
+    text:data.pipeline.map(d=>'₦' + (d.pending_value_naira/1e9).toFixed(2) + 'B'),
     textposition:'top center',
-    name:'Pending value (₦B)'
+    yaxis:'y2',
+    name:'Pending value'
   }
 ], {
-  paper_bgcolor:'rgba(0,0,0,0)',
-  plot_bgcolor:'rgba(0,0,0,0)',
-  font:{color:'#eef2ff'},
+  paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{color:'#eef3ff'},
   margin:{l:50,r:50,t:10,b:40},
   yaxis:{title:'Files', gridcolor:'rgba(255,255,255,.08)'},
   yaxis2:{title:'Value (₦B)', overlaying:'y', side:'right', gridcolor:'rgba(255,255,255,0)'},
@@ -300,120 +228,81 @@ Plotly.newPlot('pipelineChart', [
 
 Plotly.newPlot('agingChart', [{
   type:'bar',
-  x: data.aging.map(d=>d.bucket),
-  y: data.aging.map(d=>d.files),
-  text: data.aging.map(d=>d.files),
+  x:data.aging.map(d=>d["Aging Bucket"]),
+  y:data.aging.map(d=>d.pending_files),
+  text:data.aging.map(d=>d.pending_files),
   textposition:'outside'
 }], {
-  paper_bgcolor:'rgba(0,0,0,0)',
-  plot_bgcolor:'rgba(0,0,0,0)',
-  font:{color:'#eef2ff'},
+  paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{color:'#eef3ff'},
   margin:{l:50,r:20,t:10,b:40},
-  yaxis:{title:'Files', gridcolor:'rgba(255,255,255,.08)'},
-  annotations: [{
-    x: '31–60 days', y: 70, text: 'Backlog concentration',
-    showarrow: true, arrowhead: 2, ax: 0, ay: -40, font:{color:'#fcd34d'}
-  }]
+  yaxis:{title:'Pending files', gridcolor:'rgba(255,255,255,.08)'}
 }, {displayModeBar:false, responsive:true});
 
-Plotly.newPlot('deptExposureChart', [
-  {
-    type:'bar',
-    orientation:'h',
-    y: data.dept_exposure.map(d=>d.department).reverse(),
-    x: data.dept_exposure.map(d=>d.proposed/1e9).reverse(),
-    text: data.dept_exposure.map(d=>bn(d.proposed)).reverse(),
-    textposition:'outside',
-    name:'Proposed value'
-  },
-  {
-    type:'scatter',
-    mode:'markers+text',
-    y: data.dept_exposure.map(d=>d.department).reverse(),
-    x: data.dept_exposure.map(d=>(d.pending_value||0)/1e9).reverse(),
-    text: data.dept_exposure.map(d=>d.pending_value ? 'Pending ' + bn(d.pending_value) : '').reverse(),
-    textposition:'middle right',
-    name:'Pending value'
-  }
-], {
-  paper_bgcolor:'rgba(0,0,0,0)',
-  plot_bgcolor:'rgba(0,0,0,0)',
-  font:{color:'#eef2ff'},
-  margin:{l:110,r:30,t:10,b:40},
-  xaxis:{title:'₦ Billions', gridcolor:'rgba(255,255,255,.08)'},
-  legend:{orientation:'h', y:1.12}
+Plotly.newPlot('deptChart', [{
+  type:'bar',
+  orientation:'h',
+  y:data.dept.map(d=>d.Department).reverse(),
+  x:data.dept.map(d=>d.pending_value_naira/1e9).reverse(),
+  text:data.dept.map(d=>'₦' + (d.pending_value_naira/1e9).toFixed(2) + 'B').reverse(),
+  textposition:'outside'
+}], {
+  paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{color:'#eef3ff'},
+  margin:{l:120,r:30,t:10,b:40},
+  xaxis:{title:'Pending value (₦B)', gridcolor:'rgba(255,255,255,.08)'}
+}, {displayModeBar:false, responsive:true});
+
+Plotly.newPlot('statusChart', [{
+  type:'pie',
+  labels:data.status_counts.map(d=>d.status),
+  values:data.status_counts.map(d=>d.count),
+  textinfo:'label+percent',
+  hole:.45
+}], {
+  paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{color:'#eef3ff'},
+  margin:{l:10,r:10,t:10,b:10},
+  showlegend:false
 }, {displayModeBar:false, responsive:true});
 
 Plotly.newPlot('turnaroundChart', [
   {
     type:'bar',
-    x: data.turnaround.map(d=>d.level),
-    y: data.turnaround.map(d=>d.avg_days),
-    text: data.turnaround.map(d=>d.avg_days + 'd avg'),
+    x:data.turnaround.map(d=>d.Stage),
+    y:data.turnaround.map(d=>d.avg_days),
+    text:data.turnaround.map(d=>d.avg_days.toFixed(1) + 'd avg'),
     textposition:'outside',
-    name:'Average days'
+    name:'Average'
   },
   {
     type:'scatter',
-    x: data.turnaround.map(d=>d.level),
-    y: data.turnaround.map(d=>d.median_days),
+    x:data.turnaround.map(d=>d.Stage),
+    y:data.turnaround.map(d=>d.median_days),
     mode:'lines+markers+text',
-    text: data.turnaround.map(d=>d.median_days + 'd median'),
+    text:data.turnaround.map(d=>d.median_days.toFixed(0) + 'd median'),
     textposition:'top center',
-    name:'Median days'
+    name:'Median'
   }
 ], {
-  paper_bgcolor:'rgba(0,0,0,0)',
-  plot_bgcolor:'rgba(0,0,0,0)',
-  font:{color:'#eef2ff'},
-  margin:{l:50,r:20,t:10,b:80},
+  paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{color:'#eef3ff'},
+  margin:{l:50,r:20,t:10,b:40},
   yaxis:{title:'Days', gridcolor:'rgba(255,255,255,.08)'},
   legend:{orientation:'h', y:1.12}
 }, {displayModeBar:false, responsive:true});
 
-const under = data.util_top_under.map(d=>({item:d.item, gap:d.gap/1e9}));
-Plotly.newPlot('budgetGapChart', [{
-  type:'bar',
-  orientation:'h',
-  y: under.map(d=>d.item).reverse(),
-  x: under.map(d=>d.gap).reverse(),
-  text: under.map(d=>'₦' + d.gap.toFixed(2) + 'B').reverse(),
-  textposition:'outside'
-}], {
-  paper_bgcolor:'rgba(0,0,0,0)',
-  plot_bgcolor:'rgba(0,0,0,0)',
-  font:{color:'#eef2ff'},
-  margin:{l:220,r:30,t:10,b:40},
-  xaxis:{title:'Budget gap (₦ Billions)', gridcolor:'rgba(255,255,255,.08)'}
-}, {displayModeBar:false, responsive:true});
+document.getElementById('topPendingRows').innerHTML = data.top_pending.map(d => `
+<tr>
+  <td>${d.Subject}</td>
+  <td>${d.Department}</td>
+  <td><span class="tag warn">${d.Stage}</span></td>
+  <td>${d["Date Sent"]}</td>
+  <td class="num">${naira(d["Pending Value"])}</td>
+</tr>`).join('');
 
-document.getElementById('topPendingTable').innerHTML = data.top_pending.map(d => `
-  <tr>
-    <td>${d.project}</td>
-    <td>${d.department}</td>
-    <td>${d.date_sent}</td>
-    <td><span class="tag warn">${d.stage}</span></td>
-    <td class="num">${naira(d.value)}</td>
-  </tr>
-`).join('');
-
-document.getElementById('dqTable').innerHTML = data.data_quality.map(d => `
-  <tr>
-    <td>${d.issue}</td>
-    <td class="num">${d.count}</td>
-    <td><span class="tag ${severityClass(d.severity)}">${d.severity}</span></td>
-  </tr>
-`).join('');
-
-document.getElementById('overUtilTable').innerHTML = data.util_top_over.map(d => `
-  <tr>
-    <td>${d.item}</td>
-    <td>${d.department}</td>
-    <td class="num">${naira(d.allocated)}</td>
-    <td class="num">${naira(d.spent)}</td>
-    <td class="num">${naira(d.overrun)}</td>
-  </tr>
-`).join('');
+document.getElementById('dqRows').innerHTML = data.data_quality.map(d => `
+<tr>
+  <td>${d.issue}</td>
+  <td class="num">${d.count}</td>
+  <td><span class="tag ${severityClass(d.severity)}">${d.severity}</span></td>
+</tr>`).join('');
 </script>
 </body>
 </html>
